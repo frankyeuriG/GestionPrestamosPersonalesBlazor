@@ -1,6 +1,58 @@
 ﻿@page "/ocupacion"
-<h3>R_Ocupaciones</h3>
 
+@inject OcupacionesBLL ocupacionesBll
+
+<EditForm Model="ocupacion" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+
+    <div class="card text-dark bg-light mb-3 shadow-lg">
+
+        <div class="card-header">
+            <h3>Registro de Ocupaciones</h3>
+        </div>
+
+        <div class="card-body">
+            <div class="col-3">
+                <label>OcupacionId</label>
+                <div class="input-group mb-3">
+                    <InputNumber class="form-control" @bind-Value="ocupacion.OcupacionId" />
+                    <button class="btn btn-outline-primary" type="button" @onclick="Buscar"> <i class="oi oi-magnifying-glass" /> </button>
+                </div>
+            </div>
+
+            <div class="col">
+                <label>Descipci&oacute;n</label>
+                <div class="input-group mb-3">
+                    <InputText class="form-control" @bind-Value="ocupacion.Descripcion" />
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="card-footer d-flex justify-content-center">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-primary" @onclick="Nuevo"> <i class="oi oi-file" /> Nuevo</button>
+                <button type="submit" class="btn btn-success"> <i class="oi oi-document" /> Guardar</button>
+                <button type="button" class="btn btn-danger"><i class="oi oi-trash" /> Eliminar</button>
+            </div>
+        </div>
+
+    </div>
+</EditForm>
 @code {
+    public Ocupaciones ocupacion { get; set; } = new Ocupaciones();
 
+    void Buscar()
+    {
+       // var encontrado = ocupacionesBll.
+    }
+    void Nuevo()
+    {
+        this.ocupacion = new Ocupaciones();
+    }
+    void Guardar()
+    {
+        if (ocupacionesBll.Guardar(this.ocupacion))
+            this.Nuevo();
+    }
 }

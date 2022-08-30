@@ -1,3 +1,4 @@
+using GestionPrestamosPersonales.BLL;
 using GestionPrestamosPersonales.DAL;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -10,6 +11,9 @@ var ConStr = builder.Configuration.GetConnectionString("ConStr");
 builder.Services.AddDbContext<Contexto>(con =>
     con.UseSqlite(ConStr)
 ) ;
+
+
+builder.Services.AddTransient<OcupacionesBLL>();
 
 // Add services to the container.
 builder.Services.AddRazorPages();
