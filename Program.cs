@@ -1,8 +1,15 @@
+using GestionPrestamosPersonales.DAL;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var ConStr = builder.Configuration.GetConnectionString("ConStr");
+
+builder.Services.AddDbContext<Contexto>(con =>
+    con.UseSqlite(ConStr)
+) ;
 
 // Add services to the container.
 builder.Services.AddRazorPages();
