@@ -3,5 +3,6 @@
 ################################################################################
 
 /.vs/GestionPrestamosPersonales
-/bin/Debug/net6.0
+/bin/**
 /obj/**
+obj/staticwebassets.pack.sentinel
