@@ -1,5 +1,163 @@
-﻿<h3>R_Personas</h3>
+﻿@page "/Persona"
+@page "/Persona/{PersonaId:int}"
+
+@inject PersonasBLL PersonasBLL
+@inject NotificationService notifierSvc
+@inject OcupacionesBLL ocupacionBLL
+
+<EditForm Model="persona" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+    <div class="card">
+        <div class="card-header">
+            <h3>Registro de Personas</h3>
+        </div>
+        <div class="card-body">
+            @*PersonaId*@
+            <div class="form-row align-items-center">
+                <div class="col">
+                    <div class="mb-3">
+                        <label>PersonaId</label>
+                        <div class="input-group">
+                            <InputNumber @bind-Value="persona.PersonaId" class="form-control col-4" />
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-primary" type="button" @onclick="Buscar"> <i class="oi oi-magnifying-glass" /> </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*Nombres*@
+            <div class="mb-3">
+                <label>Nombres</label>
+                <InputText @bind-Value="persona.Nombres" class="form-control" />
+                <ValidationMessage For="@(() => persona.Nombres)" />
+            </div>
+
+            @*Direccion*@
+            <div class="mb-3">
+                <label>Direccion</label>
+                <InputText @bind-Value="persona.Direccion" class="form-control" />
+                <ValidationMessage For="@(() => persona.Direccion)" />
+            </div>
+
+            @*Email*@
+            <div class="mb-3">
+                <label>Email</label>
+                <InputText @bind-Value="persona.Email" class="form-control" />
+                <ValidationMessage For="@(() => persona.Email)" />
+            </div>
+
+            @*FechaNacimiento*@
+            <div class="mb-3">
+                <label>Fecha De Nacimiento</label>
+                <InputDate @bind-Value="persona.FechaNacimiento" class="form-control" />
+                <ValidationMessage For="@(() => persona.FechaNacimiento)" />
+            </div>
+
+            @*Telefono*@
+            <div class="mb-3">
+                <label>Telefono</label>
+                <InputText @bind-Value="persona.Telefono" class="form-control" />
+                <ValidationMessage For="@(() => persona.Telefono)" />
+            </div>
+
+            @*Balance*@
+            <div class="mb-3">
+                <label>Balance</label>
+                <InputNumber @bind-Value="persona.Balance" class="form-control" />
+                <ValidationMessage For="@(() => persona.Balance)" />
+            </div>
+
+            <div class="mb-3 col">
+                <label>Ocupaciones</label>
+                <InputSelect class="form-select" @bind-Value="persona.OcupacionId">
+                    @foreach (Ocupaciones ocupacion in listaOcupaciones)
+                    {
+                        <option value="@ocupacion.OcupacionId">@ocupacion.Descripcion</option>
+                    }
+                </InputSelect>
+            </div>
+        </div>
+
+        <div class="card-footer d-flex justify-content-center">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-primary" @onclick="Nuevo"> <i class="oi oi-file" /> Nuevo</button>
+                <button type="submit" class="btn btn-success"> <i class="oi oi-document" /> Guardar</button>
+                <button type="button" class="btn btn-danger" @onclick="Eliminar"><i class="oi oi-trash" /> Eliminar</button>
+            </div>
+        </div>
+
+    </div>
+</EditForm>
 
 @code {
+    [Parameter]
+    public int PersonaId { get; set; }
 
+    public Personas persona { get; set; } = new Personas();
+
+    public String mensaje { get; set; } = "";
+    public List<Ocupaciones> listaOcupaciones { get; set; } = new List<Ocupaciones>();
+
+
+    protected override void OnInitialized()
+    {
+        if (PersonaId > 0)
+        {
+            this.persona.PersonaId = PersonaId;
+            this.Buscar();
+        }
+        listaOcupaciones = ocupacionBLL.GetList(o => true);
+    }
+
+    private void Buscar()
+    {
+        if (persona.PersonaId > 0)
+        {
+            var encontrado = PersonasBLL.Buscar(persona.PersonaId);
+
+            if (encontrado != null)
+                this.persona = encontrado;
+
+        }
+    }
+
+    public void Nuevo()
+    {
+        mensaje = "";
+        persona = new Personas();
+        persona.FechaNacimiento = DateTime.Now;
+    }
+
+    bool Validar()
+    {
+        return persona.Email.Contains(".com");
+    }
+
+    public void Guardar()
+    {
+        if (!Validar())
+        {
+            notifierSvc.ShowNotification("Error Revise los campos ", NotificationSeverity.Error);
+            return;
+        }
+
+        var guardo = PersonasBLL.Guardar(persona);
+        if (guardo)
+        {
+            notifierSvc.ShowNotification("Guardado correctamente", NotificationSeverity.Success);
+            Nuevo();
+        }
+    }
+
+    public void Eliminar()
+    {
+        var elimino = PersonasBLL.Eliminar(persona);
+        if (elimino)
+        {
+            notifierSvc.ShowNotification("Eliminado", NotificationSeverity.Error);
+            Nuevo();
+        }
+    }
 }

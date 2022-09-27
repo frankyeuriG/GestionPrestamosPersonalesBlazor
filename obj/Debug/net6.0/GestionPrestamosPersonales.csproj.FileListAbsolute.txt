@@ -53,3 +53,5 @@ D:\AplicadaI\Ap1 2022-03\GestionPrestamosPersonales\obj\Debug\net6.0\refint\Gest
 D:\AplicadaI\Ap1 2022-03\GestionPrestamosPersonales\obj\Debug\net6.0\GestionPrestamosPersonales.pdb
 D:\AplicadaI\Ap1 2022-03\GestionPrestamosPersonales\obj\Debug\net6.0\GestionPrestamosPersonales.genruntimeconfig.cache
 D:\AplicadaI\Ap1 2022-03\GestionPrestamosPersonales\obj\Debug\net6.0\ref\GestionPrestamosPersonales.dll
+D:\AplicadaI\Ap1 2022-03\GestionPrestamosPersonales\bin\Debug\net6.0\Radzen.Blazor.dll
+D:\AplicadaI\Ap1 2022-03\GestionPrestamosPersonales\bin\Debug\net6.0\System.Linq.Dynamic.Core.dll
