@@ -3,6 +3,7 @@ using GestionPrestamosPersonales.DAL;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore;
+using Radzen;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,9 @@ builder.Services.AddDbContext<Contexto>(con =>
 
 
 builder.Services.AddTransient<OcupacionesBLL>();
+
+
+builder.Services.AddScoped<NotificationService>();
 
 // Add services to the container.
 builder.Services.AddRazorPages();

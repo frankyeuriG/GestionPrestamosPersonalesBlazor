@@ -1,0 +1,128 @@
+﻿@page "/Ocupacion"
+@page "/Ocupacion/{OcupacionId:Int}"
+
+@inject OcupacionesBLL ocupacionesBll
+@inject NotificationService notifierSvc
+
+<EditForm Model="ocupacion" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+
+    <div class="card">
+        <div class="card-header">
+            <h3>Registro de Ocupaciones</h3>
+        </div>
+
+        <div class="card-body">
+            @*OcupacionId*@
+            <div class="form-row align-items-center">
+                <div class="col">
+                    <div class="mb-3">
+                        <label>OcupacionId</label>
+                        <div class="input-group">
+                            <InputNumber @bind-Value="ocupacion.OcupacionId" class="form-control col-4" />
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-primary" type="button" @onclick="Buscar"> <i class="oi oi-magnifying-glass" /> </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*Descripción*@
+            <div class="mb-3">
+                <label>Descipci&oacute;n</label>
+                <InputText class="form-control" @bind-Value="ocupacion.Descripcion" />
+                <ValidationMessage For="@(() => ocupacion.Descripcion)" />
+            </div>
+
+            @*Salario*@
+            <div class="mb-3">
+                <label>Salario</label>
+                <InputNumber @bind-Value="ocupacion.Salario" class="form-control" />
+                <ValidationMessage For="@(() => ocupacion.Salario)" />
+            </div>
+
+        </div>
+
+        <div class="card-footer d-flex justify-content-center">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-primary" @onclick="Nuevo"> <i class="oi oi-file" /> Nuevo</button>
+                <button type="submit" class="btn btn-success"> <i class="oi oi-document" /> Guardar</button>
+                <button type="button" class="btn btn-danger"><i class="oi oi-trash" /> Eliminar</button>
+            </div>
+        </div>
+
+    </div>
+</EditForm>
+@code {
+    [Parameter]
+    public int OcupacionId { get; set; }
+
+    public Ocupaciones ocupacion { get; set; } = new Ocupaciones();
+
+    protected override void OnInitialized()
+    {
+        if (OcupacionId > 0)
+        {
+            this.ocupacion.OcupacionId = OcupacionId;
+            this.Buscar();
+        }
+    }
+
+    private void Buscar()
+    {
+        if (ocupacion.OcupacionId > 0)
+        {
+            var encontrado = ocupacionesBll.Buscar(ocupacion.OcupacionId);
+
+            if (encontrado != null)
+                this.ocupacion = encontrado;
+            else
+                notifierSvc.ShowNotification("Registro no encontrado", NotificationSeverity.Warning);
+        }
+    }
+
+    public void Nuevo()
+    {
+        ocupacion = new Ocupaciones();
+    }
+
+    bool Validar()
+    {
+        return true;
+    }
+
+    public void Guardar()
+    {
+        if (!Validar())
+        {
+            notifierSvc.ShowNotification("hay errores, favor corregir", NotificationSeverity.Error);
+            return;
+        }
+
+        var guardo = ocupacionesBll.Guardar(ocupacion);
+        if (guardo)
+        {
+            notifierSvc.ShowNotification("Guardado correctamente");
+            Nuevo();
+        }
+        else
+        {
+            notifierSvc.ShowNotification("No se guardo correctamente.", NotificationSeverity.Error);
+        }
+    }
+
+    public void Eliminar()
+    {
+        var elimino = ocupacionesBll.Eliminar(ocupacion);
+        if (elimino)
+        {
+            Nuevo();
+            notifierSvc.ShowNotification("Fue eliminado correctamente.");
+        }
+        else
+        {
+            notifierSvc.ShowNotification("No fue Eliminado, intentar nuevamente.", NotificationSeverity.Error);
+        }
+    }
+}

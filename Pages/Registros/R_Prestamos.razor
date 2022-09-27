@@ -1,0 +1,170 @@
+﻿@page "/Prestamo"
+@page "/Prestamos/{PrestamoId:int}"
+
+@inject PrestamosBLL PrestamosBLL
+@inject PersonasBLL PersonasBLL
+@inject NotificationService notifierSvc
+
+<EditForm Model="prestamo" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+    <div class="card">
+        <div class="card-header">
+            <h3>Registro de Prestamos</h3>
+        </div>
+        <div class="card-body">
+            <div class="container overflow-hidden">
+                <div class="row gy-6">
+
+                    @*PrestamoId*@
+                    <label>Prestamo ID</label>
+                    <div class="form-r ow align-items-center">
+                        <div class="col">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <InputNumber @bind-Value="prestamo.PrestamoId" class="form-control" />
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-primary" type="button" @onclick="Buscar"> <i class="oi oi-magnifying-glass" /> </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*Fecha*@
+                    <div class="mb-3">
+                        <label>Fecha de Inicio</label>
+                        <InputDate @bind-Value="prestamo.Fecha" class="form-control" />
+                        <ValidationMessage For="@(() => prestamo.Fecha)" />
+                    </div>
+
+                    @*Vence*@
+                    <div class="mb-3">
+                        <label>Fecha De Vencimiento</label>
+                        <InputDate readonly="true" @bind-Value="prestamo.Vence" class="form-control" />
+                        <ValidationMessage For="@(() => prestamo.Vence)" />
+                    </div>
+
+                    @*PersonaId*@
+                    <div class="mb-3">
+                        <label>Persona</label>
+                        <InputSelect class="form-select" @bind-Value="prestamo.PersonaId">
+                            <option value="0" disabled> Seleccione uno </option>
+                            @foreach (var persona in listaPersonas)
+                            {
+                                <option value="@persona.PersonaId"> @persona.Nombres</option>
+                            }
+                        </InputSelect>
+                        <ValidationMessage For="@(() => prestamo.PersonaId)" class="form-control" />
+                    </div>
+
+                    @*Concepto*@
+                    <div class="mb-3">
+                        <label>Concepto</label>
+                        <InputText @bind-Value="prestamo.Concepto" class="form-control" />
+                        <ValidationMessage For="@(() => prestamo.Concepto)" />
+                    </div>
+
+
+                    @*Monto*@
+                    <div class="mb-3">
+                        <label>Monto</label>
+                        <InputNumber @bind-Value="prestamo.Monto" class="form-control" />
+                        <ValidationMessage For="@(() => prestamo.Monto)" />
+                    </div>
+
+
+                    @*Balance*@
+                    <div class="mb-3">
+                        <label>Balance</label>
+                        <InputNumber @bind-Value="prestamo.Balance" class="form-control" />
+                        <ValidationMessage For="@(() => prestamo.Balance)" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-footer d-flex justify-content-center">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-primary" @onclick="Nuevo"> <i class="oi oi-file" /> Nuevo</button>
+                <button type="submit" class="btn btn-success"> <i class="oi oi-document" /> Guardar</button>
+                <button type="button" class="btn btn-danger"><i class="oi oi-trash" /> Eliminar</button>
+            </div>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+    [Parameter]
+    public int PrestamoId { get; set; }
+
+    public List<Personas> listaPersonas { get; set; } = new List<Personas>();
+    public Prestamos prestamo { get; set; } = new Prestamos();
+
+    protected override void OnInitialized()
+    {
+        listaPersonas = PersonasBLL.GetList(p => true);
+        if (PrestamoId > 0)
+        {
+            this.prestamo.PrestamoId = PrestamoId;
+
+            this.Buscar();
+        }
+    }
+
+    private void Buscar()
+    {
+        if (prestamo.PrestamoId > 0)
+        {
+            var encontrado = PrestamosBLL.Buscar(prestamo.PrestamoId);
+            if (encontrado != null)
+                this.prestamo = encontrado;
+            else
+                notifierSvc.ShowNotification("Registro no encontrado", NotificationSeverity.Warning);
+        }
+    }
+
+    public void Nuevo()
+    {
+        prestamo = new Prestamos();
+        prestamo.Fecha = DateTime.Now;
+    }
+
+    bool Validar()
+    {
+        return true;
+    }
+
+    public void Guardar()
+    {
+        if (!Validar())
+        {
+            notifierSvc.ShowNotification("hay errores, favor corregir", NotificationSeverity.Error);
+            return;
+        }
+
+        var guardo = PrestamosBLL.Guardar(this.prestamo);
+        if (guardo)
+        {
+            notifierSvc.ShowNotification("Guardado correctamente");
+            Nuevo();
+        }
+        else
+        {
+            notifierSvc.ShowNotification("No se guardo correctamente.", NotificationSeverity.Error);
+        }
+    }
+
+    public void Eliminar()
+    {
+        var elimino = PrestamosBLL.Eliminar(prestamo);
+        if (elimino)
+        {
+            Nuevo();
+            notifierSvc.ShowNotification("Fue eliminado correctamente.");
+        }
+        else
+        {
+            notifierSvc.ShowNotification("No fue Eliminado, intentar nuevamente.", NotificationSeverity.Error);
+        }
+    }
+}
