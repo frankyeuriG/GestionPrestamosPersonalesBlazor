@@ -1,5 +1,5 @@
-﻿@page "/ocupacion"
-@page "/ocupacion/{OcupacionId:int}"
+﻿@page "/Ocupacion"
+@page "/Ocupacion/{OcupacionId:int}"
 
 @inject OcupacionesBLL OcupacionesBLL
 @inject NotificationService notificationService
@@ -112,10 +112,10 @@
         {
             ShowNotification(
             new NotificationMessage
-            {
-                Severity = NotificationSeverity.Success,
-                Summary = "Guardado correctamente"
-            });
+                {
+                    Severity = NotificationSeverity.Success,
+                    Summary = "Guardado correctamente"
+                });
 
             Nuevo();
 

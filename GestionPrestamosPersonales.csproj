@@ -7,19 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Pages\Consultas\**" />
-    <Content Remove="Pages\Consultas\**" />
-    <EmbeddedResource Remove="Pages\Consultas\**" />
-    <None Remove="Pages\Consultas\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Remove="Pages\Registros\R_Ocupaciones.razor" />
-    <Content Remove="Pages\Registros\R_Personas.razor" />
-    <Content Remove="Pages\Registros\R_Prestamos.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Data\" />
   </ItemGroup>
 

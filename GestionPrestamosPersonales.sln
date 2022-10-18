@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.3.32901.215
+VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GestionPrestamosPersonales", "GestionPrestamosPersonales.csproj", "{D414B36E-CE75-4602-AC0F-1662C654B19D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GestionPrestamosPersonales", "GestionPrestamosPersonales.csproj", "{B5146892-2314-442F-A6EC-C8A10C5BAF86}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D414B36E-CE75-4602-AC0F-1662C654B19D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D414B36E-CE75-4602-AC0F-1662C654B19D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D414B36E-CE75-4602-AC0F-1662C654B19D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D414B36E-CE75-4602-AC0F-1662C654B19D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5146892-2314-442F-A6EC-C8A10C5BAF86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5146892-2314-442F-A6EC-C8A10C5BAF86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5146892-2314-442F-A6EC-C8A10C5BAF86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5146892-2314-442F-A6EC-C8A10C5BAF86}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {0C29C132-D993-4825-B63E-0B69BF4A3DA9}
+		SolutionGuid = {6DB571C4-865A-49E8-909E-CA1155A9EE0F}
 	EndGlobalSection
 EndGlobal

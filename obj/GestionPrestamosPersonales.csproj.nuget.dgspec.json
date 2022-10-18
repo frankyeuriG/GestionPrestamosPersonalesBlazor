@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\AplicadaI\\Ap1 2022-03\\PrestamosPersonales2022\\GestionPrestamosPersonales.csproj": {}
+    "C:\\Users\\frank\\Desktop\\A\\GestionPrestamosPersonales.csproj": {}
   },
   "projects": {
-    "D:\\AplicadaI\\Ap1 2022-03\\PrestamosPersonales2022\\GestionPrestamosPersonales.csproj": {
+    "C:\\Users\\frank\\Desktop\\A\\GestionPrestamosPersonales.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\AplicadaI\\Ap1 2022-03\\PrestamosPersonales2022\\GestionPrestamosPersonales.csproj",
+        "projectUniqueName": "C:\\Users\\frank\\Desktop\\A\\GestionPrestamosPersonales.csproj",
         "projectName": "GestionPrestamosPersonales",
-        "projectPath": "D:\\AplicadaI\\Ap1 2022-03\\PrestamosPersonales2022\\GestionPrestamosPersonales.csproj",
-        "packagesPath": "C:\\Users\\enelr\\.nuget\\packages\\",
-        "outputPath": "D:\\AplicadaI\\Ap1 2022-03\\PrestamosPersonales2022\\obj\\",
+        "projectPath": "C:\\Users\\frank\\Desktop\\A\\GestionPrestamosPersonales.csproj",
+        "packagesPath": "C:\\Users\\frank\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\frank\\Desktop\\A\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\enelr\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\frank\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -66,7 +66,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -78,7 +79,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }
