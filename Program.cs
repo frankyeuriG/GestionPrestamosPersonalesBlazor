@@ -4,25 +4,24 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore;
 using Radzen;
+ 
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddScoped<NotificationService>();
+// Add services to the container.
+builder.Services.AddRazorPages();
+builder.Services.AddServerSideBlazor();
 
 var ConStr = builder.Configuration.GetConnectionString("ConStr");
 
 builder.Services.AddDbContext<Contexto>(con =>
     con.UseSqlite(ConStr)
-) ;
-
-
+);
 builder.Services.AddTransient<OcupacionesBLL>();
-
-
-builder.Services.AddScoped<NotificationService>();
-
-// Add services to the container.
-builder.Services.AddRazorPages();
-builder.Services.AddServerSideBlazor();
-
+builder.Services.AddTransient<PersonasBLL>();
+builder.Services.AddTransient<PrestamosBLL>();
+builder.Services.AddTransient<PagosBLL>();
 
 var app = builder.Build();
 

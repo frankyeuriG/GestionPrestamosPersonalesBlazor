@@ -88,4 +88,5 @@ namespace GestionPrestamosPersonales.BLL
                 .ToList();
         }
     }
+
 }

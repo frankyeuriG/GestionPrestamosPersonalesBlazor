@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\AplicadaI\\Ap1 2022-03\\GestionPrestamosPersonales\\GestionPrestamosPersonales.csproj": {}
+    "D:\\AplicadaI\\Ap1 2022-03\\PrestamosPersonales2022\\GestionPrestamosPersonales.csproj": {}
   },
   "projects": {
-    "D:\\AplicadaI\\Ap1 2022-03\\GestionPrestamosPersonales\\GestionPrestamosPersonales.csproj": {
+    "D:\\AplicadaI\\Ap1 2022-03\\PrestamosPersonales2022\\GestionPrestamosPersonales.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\AplicadaI\\Ap1 2022-03\\GestionPrestamosPersonales\\GestionPrestamosPersonales.csproj",
+        "projectUniqueName": "D:\\AplicadaI\\Ap1 2022-03\\PrestamosPersonales2022\\GestionPrestamosPersonales.csproj",
         "projectName": "GestionPrestamosPersonales",
-        "projectPath": "D:\\AplicadaI\\Ap1 2022-03\\GestionPrestamosPersonales\\GestionPrestamosPersonales.csproj",
+        "projectPath": "D:\\AplicadaI\\Ap1 2022-03\\PrestamosPersonales2022\\GestionPrestamosPersonales.csproj",
         "packagesPath": "C:\\Users\\enelr\\.nuget\\packages\\",
-        "outputPath": "D:\\AplicadaI\\Ap1 2022-03\\GestionPrestamosPersonales\\obj\\",
+        "outputPath": "D:\\AplicadaI\\Ap1 2022-03\\PrestamosPersonales2022\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -45,19 +45,19 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
-            "Microsoft.EntityFrameworkCore.SqLite": {
+            "Microsoft.Entityframeworkcore.sqlite": {
               "target": "Package",
-              "version": "[6.0.8, )"
+              "version": "[6.0.10, )"
             },
-            "Microsoft.EntityFrameworkCore.Tools": {
+            "Microsoft.Entityframeworkcore.tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[6.0.8, )"
+              "version": "[6.0.10, )"
             },
             "Radzen.Blazor": {
               "target": "Package",
-              "version": "[4.1.3, )"
+              "version": "[4.1.9, )"
             }
           },
           "imports": [
@@ -66,8 +66,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -79,7 +78,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     }

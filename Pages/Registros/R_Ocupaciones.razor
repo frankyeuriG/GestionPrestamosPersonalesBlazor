@@ -1,8 +1,8 @@
-﻿@page "/Ocupacion"
-@page "/Ocupacion/{OcupacionId:Int}"
+﻿@page "/ocupacion"
+@page "/ocupacion/{OcupacionId:int}"
 
-@inject OcupacionesBLL ocupacionesBll
-@inject NotificationService notifierSvc
+@inject OcupacionesBLL OcupacionesBLL
+@inject NotificationService notificationService
 
 <EditForm Model="ocupacion" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
@@ -10,80 +10,83 @@
     <div class="card">
         <div class="card-header">
             <h3>Registro de Ocupaciones</h3>
-        </div>
 
+        </div>
         <div class="card-body">
             @*OcupacionId*@
             <div class="form-row align-items-center">
                 <div class="col">
-                    <div class="mb-3">
+                    <div class="form-group">
                         <label>OcupacionId</label>
                         <div class="input-group">
                             <InputNumber @bind-Value="ocupacion.OcupacionId" class="form-control col-4" />
                             <div class="input-group-append">
-                                <button class="btn btn-outline-primary" type="button" @onclick="Buscar"> <i class="oi oi-magnifying-glass" /> </button>
+                                <button type="button" class="btn btn-primary input-group-text"
+                                        @onclick="Buscar">
+                                    <i class="oi oi-magnifying-glass" /> Buscar
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            @*Descripción*@
-            <div class="mb-3">
-                <label>Descipci&oacute;n</label>
-                <InputText class="form-control" @bind-Value="ocupacion.Descripcion" />
+            @*Descripcion*@
+            <div class="form-group">
+                <label>Descripcion</label>
+                <InputText @bind-Value="ocupacion.Descripcion" class="form-control" />
                 <ValidationMessage For="@(() => ocupacion.Descripcion)" />
             </div>
 
             @*Salario*@
-            <div class="mb-3">
+            <div class="form-group">
                 <label>Salario</label>
                 <InputNumber @bind-Value="ocupacion.Salario" class="form-control" />
                 <ValidationMessage For="@(() => ocupacion.Salario)" />
             </div>
-
         </div>
+        <h1>
+            <span class="text-danger">@mensaje</span>
+        </h1>
 
-        <div class="card-footer d-flex justify-content-center">
-            <div class="btn-group" role="group">
-                <button type="button" class="btn btn-primary" @onclick="Nuevo"> <i class="oi oi-file" /> Nuevo</button>
-                <button type="submit" class="btn btn-success"> <i class="oi oi-document" /> Guardar</button>
-                <button type="button" class="btn btn-danger"><i class="oi oi-trash" /> Eliminar</button>
+        <div class="card-footer">
+            <div class="form-group text-center" display: inline-block>
+                <button type="button" class="btn btn-lg btn-primary" @onclick="Nuevo">
+                    <i class="oi oi-file" /> Nuevo
+                </button>
+                <button type="submit" class="btn btn-lg btn-success">
+                    <i class="oi oi-document" /> Guardar
+                </button>
+                <button type="button" class="btn btn-lg btn-danger" @onclick="Eliminar">
+                    <i class="oi oi-trash" /> Eliminar
+                </button>
             </div>
         </div>
-
     </div>
 </EditForm>
+
 @code {
     [Parameter]
     public int OcupacionId { get; set; }
 
     public Ocupaciones ocupacion { get; set; } = new Ocupaciones();
 
+    public String mensaje { get; set; } = "";
+
+
     protected override void OnInitialized()
     {
         if (OcupacionId > 0)
         {
+
             this.ocupacion.OcupacionId = OcupacionId;
             this.Buscar();
         }
     }
 
-    private void Buscar()
-    {
-        if (ocupacion.OcupacionId > 0)
-        {
-            var encontrado = ocupacionesBll.Buscar(ocupacion.OcupacionId);
-
-            if (encontrado != null)
-                this.ocupacion = encontrado;
-            else
-                notifierSvc.ShowNotification("Registro no encontrado", NotificationSeverity.Warning);
-        }
-    }
-
     public void Nuevo()
     {
+        mensaje = "";
         ocupacion = new Ocupaciones();
     }
 
@@ -94,35 +97,60 @@
 
     public void Guardar()
     {
+        bool guardo;
+
         if (!Validar())
         {
-            notifierSvc.ShowNotification("hay errores, favor corregir", NotificationSeverity.Error);
+            mensaje = "hay errores, favor corregir";
             return;
         }
 
-        var guardo = ocupacionesBll.Guardar(ocupacion);
+
+        guardo = OcupacionesBLL.Guardar(ocupacion);
+
         if (guardo)
         {
-            notifierSvc.ShowNotification("Guardado correctamente");
+            ShowNotification(
+            new NotificationMessage
+            {
+                Severity = NotificationSeverity.Success,
+                Summary = "Guardado correctamente"
+            });
+
             Nuevo();
+
         }
-        else
+
+    }
+    private void Buscar()
+    {
+        if (ocupacion.OcupacionId > 0)
         {
-            notifierSvc.ShowNotification("No se guardo correctamente.", NotificationSeverity.Error);
+            var encontrado = OcupacionesBLL.Buscar(ocupacion.OcupacionId);
+
+            if (encontrado != null)
+                this.ocupacion = encontrado;
+
         }
     }
 
     public void Eliminar()
     {
-        var elimino = ocupacionesBll.Eliminar(ocupacion);
+        bool elimino;
+
+        elimino = OcupacionesBLL.Eliminar(ocupacion);
+
         if (elimino)
         {
             Nuevo();
-            notifierSvc.ShowNotification("Fue eliminado correctamente.");
+
         }
-        else
-        {
-            notifierSvc.ShowNotification("No fue Eliminado, intentar nuevamente.", NotificationSeverity.Error);
-        }
+
+    }
+
+    void ShowNotification(NotificationMessage message)
+    {
+        notificationService.Notify(message);
+
     }
 }

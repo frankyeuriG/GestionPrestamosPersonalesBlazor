@@ -3,6 +3,7 @@ using System;
 using GestionPrestamosPersonales.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,12 +11,13 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GestionPrestamosPersonales.Migrations
 {
     [DbContext(typeof(Contexto))]
-    partial class ContextoModelSnapshot : ModelSnapshot
+    [Migration("20221017235513_Tabla de Pagos")]
+    partial class TabladePagos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "6.0.10");
+            modelBuilder.HasAnnotation("ProductVersion", "6.0.8");
 
             modelBuilder.Entity("GestionPrestamosPersonales.Models.Ocupaciones", b =>
                 {
@@ -149,7 +151,7 @@ namespace GestionPrestamosPersonales.Migrations
             modelBuilder.Entity("GestionPrestamosPersonales.Models.PagosDetalle", b =>
                 {
                     b.HasOne("GestionPrestamosPersonales.Models.Pagos", null)
-                        .WithMany("Detalle")
+                        .WithMany("PagosDetalle")
                         .HasForeignKey("PagoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -157,7 +159,7 @@ namespace GestionPrestamosPersonales.Migrations
 
             modelBuilder.Entity("GestionPrestamosPersonales.Models.Pagos", b =>
                 {
-                    b.Navigation("Detalle");
+                    b.Navigation("PagosDetalle");
                 });
 #pragma warning restore 612, 618
         }
